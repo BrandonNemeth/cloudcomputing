@@ -1,2 +1,5 @@
-# cloudcomputing
-CS course of Cloud computing
+# CS course of Cloud computing
+
+Homework  
+* [ ] Tarea - Cena de Filosofos
+
