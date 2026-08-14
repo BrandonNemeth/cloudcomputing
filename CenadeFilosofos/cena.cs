@@ -20,15 +20,25 @@ namespace CenadeFilosofos {
             Console.WriteLine($"  {philosopherName} suelta el tenedor {Id}");
             Monitor.Exit(_lock);
         }
+        
     }
     class MainApplication {
-        public static void Run() {}
+        private const int NumPhilosophers = 5;
+        public static void Run()
+        {
+            string[] names = { "Socrates", "Platon", "Aristoteles", "Descartes", "Kant" };
+
+            Fork[] forks = new Fork[NumPhilosophers];
+            for (int i = 0; i < NumPhilosophers; i++) {
+                forks[i] = new Fork(i);
+            }
+        }
 
     }
 
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine("=== La Cena de los Filosofos ===");
+            Console.WriteLine("La Cena de los Filosofos");
             MainApplication.Run();
         }
     }
