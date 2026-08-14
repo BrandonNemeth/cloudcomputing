@@ -22,6 +22,21 @@ namespace CenadeFilosofos {
         }
         
     }
+    class Philosopher {
+        public string Name { get; }
+        private readonly Fork _leftFork;
+        private readonly Fork _rightFork;
+        private readonly Random _random = new Random();
+        private readonly int _mealsToEat;
+
+        public Philosopher(string name, Fork leftFork, Fork rightFork, int mealsToEat = 3) {
+            Name = name;
+            _leftFork = leftFork;
+            _rightFork = rightFork;
+            _mealsToEat = mealsToEat;
+        }
+    }
+
     class MainApplication {
         private const int NumPhilosophers = 5;
         public static void Run()
