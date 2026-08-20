@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine
+ 
+RUN apk add --no-cache openssh openssl sudo shadow bash
+ 
+RUN ssh-keygen -A
+ 
+ARG SSH_PUBKEY
+RUN mkdir -p /root/.ssh && \
+    echo "${SSH_PUBKEY}" > /root/.ssh/authorized_keys && \
+    chmod 700 /root/.ssh && \
+    chmod 600 /root/.ssh/authorized_keys && \
+    chown -R root:root /root/.ssh
+ 
+RUN sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/^#\?PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config && \
+    sed -i 's/^#\?Port.*/Port 22/' /etc/ssh/sshd_config
+ 
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
